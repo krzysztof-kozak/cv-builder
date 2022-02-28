@@ -1,11 +1,6 @@
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import App from './App';
 
-test('renders a text on screen', () => {
+it('renders without crashing', () => {
 	render(<App />);
-
-	const text = 'Start here';
-	const element = screen.getByTestId('app-test');
-
-	expect(element).toHaveTextContent(text);
 });
