@@ -1,33 +1,34 @@
 import {
-	BookOpenIcon,
+	TranslateIcon,
 	RewindIcon,
 	FastForwardIcon,
 	DocumentDownloadIcon,
 	CogIcon,
-	MapIcon,
+	ColorSwatchIcon,
+	CubeIcon,
 } from '@heroicons/react/solid';
 
 export default function Toolbar() {
 	return (
-		<div className="text-slate-20 mx-auto mt-3 flex max-w-screen-sm justify-around rounded-full bg-slate-500 p-4 text-lg text-slate-200">
+		<div className="text-slate-20 mx-auto mt-3 flex max-w-screen-sm justify-evenly rounded-full bg-slate-500 p-4 text-lg text-slate-200">
 			<div className="flex items-center hover:text-emerald-400">
-				<BookOpenIcon className="h-5" />
-				<button className="">Font</button>
+				<TranslateIcon className="h-5" />
+				<button>Font</button>
 			</div>
 
 			<div className="flex items-center hover:text-emerald-400">
-				<BookOpenIcon className="h-5" />
-				<button className="">Theme</button>
+				<ColorSwatchIcon className="h-5" />
+				<button>Theme</button>
 			</div>
 
 			<div className="flex items-center hover:text-emerald-400">
-				<MapIcon className="h-5" />
-				<button className="">Layout</button>
+				<CubeIcon className="h-5" />
+				<button>Layout</button>
 			</div>
 
 			<div className="flex items-center hover:text-emerald-400">
 				<CogIcon className="h-5" />
-				<button className="">Settings</button>
+				<button>Settings</button>
 			</div>
 
 			<div className="flex items-center hover:text-emerald-400">
