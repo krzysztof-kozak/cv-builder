@@ -10,7 +10,7 @@ import {
 
 export default function Toolbar() {
 	return (
-		<div className="text-slate-20 mx-auto mt-3 flex max-w-screen-sm justify-evenly rounded-full bg-slate-500 p-4 text-lg text-slate-200">
+		<div className="mx-auto mt-3 flex max-w-screen-sm justify-evenly rounded-full bg-slate-500 p-4 text-lg text-slate-200 shadow-xl">
 			<div className="flex items-center hover:text-emerald-400">
 				<TranslateIcon className="h-5" />
 				<button>Font</button>
