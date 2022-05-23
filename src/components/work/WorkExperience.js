@@ -4,6 +4,7 @@ import { Position } from './index';
 const defaultPositions = [
   {
     title: 'Analyst',
+    company: 'Aon',
     responsibilities: [
       { key: crypto.randomUUID(), value: 'Task 1' },
       { key: crypto.randomUUID(), value: 'Task 2' },
@@ -15,6 +16,7 @@ const defaultPositions = [
   },
   {
     title: 'Administrator',
+    company: 'Aon',
     responsibilities: [
       { key: crypto.randomUUID(), value: 'Task 1' },
       { key: crypto.randomUUID(), value: 'Task 2' },
