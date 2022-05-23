@@ -7,8 +7,8 @@ export default function Position({ title, company, responsibilities, startDate, 
         <span>{startDate}</span> - <span>{endDate}</span>
       </p>
       <ul>
-        {responsibilities.map((responsibility) => (
-          <li>{responsibility}</li>
+        {responsibilities.map(({ key, value }) => (
+          <li key={key}>{value}</li>
         ))}
       </ul>
     </div>
