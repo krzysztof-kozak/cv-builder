@@ -8,6 +8,7 @@ function App() {
         <section className="container mt-8 flex items-center justify-between">
           <input
             value="My Resume"
+            readOnly
             className="border-b-2 border-transparent bg-inherit text-2xl text-slate-50 hover:text-slate-400 focus:border-b-2 focus:border-emerald-400 focus:text-slate-400 focus:underline-offset-8 focus:outline-none"
           />
           <Optimizer />

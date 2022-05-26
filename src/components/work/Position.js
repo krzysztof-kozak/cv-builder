@@ -1,11 +1,15 @@
 import { useEffect, useRef, useState } from 'react';
 
-export default function Position({ title, company, responsibilities, startDate, endDate }) {
-  const [editing, setEditing] = useState(true);
+export default function Position({ position, onPositionEdit }) {
+  const [editing, setEditing] = useState(false);
   const nodeRef = useRef(null);
 
-  function handleEditing() {
+  function handlePositionClick() {
     setEditing(true);
+  }
+
+  function handlePositionEdit(nextPosition) {
+    onPositionEdit(position.id, nextPosition);
   }
 
   useEffect(() => {
@@ -22,6 +26,8 @@ export default function Position({ title, company, responsibilities, startDate, 
     return () => document.removeEventListener('mousedown', handleOutsideClick);
   }, []);
 
+  const { title, company, responsibilities, startDate, endDate } = position;
+
   let positionContent;
   if (editing) {
     positionContent = (
@@ -29,33 +35,60 @@ export default function Position({ title, company, responsibilities, startDate, 
         <input
           className="bg-initial flex-shrink-0 basis-full border-b-2 border-emerald-200 border-transparent bg-inherit focus:border-emerald-600 focus:outline-none"
           value={title}
-          readOnly
+          name="title"
+          onChange={(e) => {
+            const nextPosition = { ...position, title: e.target.value };
+            handlePositionEdit(nextPosition);
+          }}
         />
         <input
           className="bg-initial flex-shrink-0 basis-full border-b-2 border-emerald-200 border-transparent bg-inherit focus:border-emerald-600 focus:outline-none"
           value={company}
-          readOnly
+          name="company"
+          onChange={(e) => {
+            const nextPosition = { ...position, company: e.target.value };
+            handlePositionEdit(nextPosition);
+          }}
         />
         <div className="flex">
           <input
             className="min-w-0 basis-16 border-b-2 border-emerald-200 border-transparent bg-inherit focus:border-emerald-600 focus:outline-none"
             value={startDate}
-            readOnly
+            name="startDate"
+            onChange={(e) => {
+              const nextPosition = { ...position, startDate: e.target.value };
+              handlePositionEdit(nextPosition);
+            }}
           />{' '}
           <span>-</span>{' '}
           <input
             className="min-w-0 basis-16 border-b-2 border-emerald-200 border-transparent bg-inherit focus:border-emerald-600 focus:outline-none"
             value={endDate}
-            readOnly
+            name="endDate"
+            onChange={(e) => {
+              const nextPosition = { ...position, endDate: e.target.value };
+              handlePositionEdit(nextPosition);
+            }}
           />
         </div>
         <ul className="flex flex-shrink-0 basis-full flex-wrap">
-          {responsibilities.map(({ key, value }) => (
+          {responsibilities.map(({ id, value }) => (
             <input
               className="flex-shrink-0 basis-full border-b-2 border-emerald-200 border-transparent bg-inherit focus:border-emerald-600 focus:outline-none"
-              key={key}
+              key={id}
               value={value}
-              readOnly
+              name="responsibilities"
+              onChange={(e) => {
+                const nextResponsibilities = responsibilities.map((r) => {
+                  if (r.id === id) {
+                    return { ...r, value: e.target.value };
+                  }
+                  return r;
+                });
+                const nextPosition = { ...position, responsibilities: nextResponsibilities };
+
+                handlePositionEdit(nextPosition);
+              }}
             />
           ))}
         </ul>
@@ -67,11 +100,11 @@ export default function Position({ title, company, responsibilities, startDate, 
         <p className="flex-shrink-0 basis-full border-b-2 border-transparent">{title}</p>
         <p className="flex-shrink-0 basis-full border-b-2 border-transparent">{company}</p>
         <p className="flex-shrink-0 basis-full border-b-2  border-transparent">
-          {endDate} - {startDate}
+          {startDate} - {endDate}
         </p>
         <ul>
-          {responsibilities.map(({ key, value }) => (
-            <li className="border-b-2 border-transparent" key={key}>
+          {responsibilities.map(({ id, value }) => (
+            <li className="border-b-2 border-transparent" key={id}>
               {value}
             </li>
           ))}
@@ -81,7 +114,7 @@ export default function Position({ title, company, responsibilities, startDate, 
   }
 
   return (
-    <div ref={nodeRef} onClick={handleEditing} className="mt-5 flex flex-wrap">
+    <div ref={nodeRef} onClick={handlePositionClick} className="mt-5 flex flex-wrap">
       {positionContent}
     </div>
   );
