@@ -1,11 +1,59 @@
 import { useState } from 'react';
 import { Institution } from './index';
 
-export default function Education() {
-  const [institutions, setInstitutions] = useState([]);
+const defaultInstitutions = [
+  {
+    studyProgram: 'Study Program',
+    placeOfEducation: 'Institution/Place of Education',
+    courses: [],
+    startDate: 'mm/yyyy',
+    endDate: 'mm/yyyy',
+    id: crypto.randomUUID(),
+  },
+];
 
-  const listOfInstitutions = institutions.map((institution) => {
-    return <Institution key={institution.id} institution={institution} />;
+export default function Education() {
+  const [institutions, setInstitutions] = useState(defaultInstitutions);
+  const [newInstitutionAdded, setNewInstitutionAdded] = useState(false);
+
+  function handleInstitutionEdit(positionId, nextPosition) {
+    const nextInstitutions = institutions.map((ins) => {
+      if (ins.id === positionId) {
+        return nextPosition;
+      }
+      return ins;
+    });
+    setInstitutions(nextInstitutions);
+  }
+
+  function handleInstitutionAdd() {
+    const institutionToAdd = {
+      studyProgram: 'Study Program',
+      placeOfEducation: 'Institution / Place of Education',
+      courses: [{ id: crypto.randomUUID(), value: '' }],
+      startDate: '',
+      endDate: '',
+      id: crypto.randomUUID(),
+    };
+
+    const nextInstitution = [...institutions, institutionToAdd];
+    setInstitutions(nextInstitution);
+
+    if (!newInstitutionAdded) {
+      setNewInstitutionAdded(true);
+    }
+  }
+
+  const listOfInstitutions = institutions.map((institution, index) => {
+    return (
+      <Institution
+        key={institution.id}
+        institution={institution}
+        onInstitutionEdit={handleInstitutionEdit}
+        onInstitutionAdd={handleInstitutionAdd}
+        defaultEditing={index === institutions.length - 1 && newInstitutionAdded}
+      />
+    );
   });
 
   return (
