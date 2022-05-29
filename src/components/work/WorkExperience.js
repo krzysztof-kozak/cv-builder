@@ -26,9 +26,9 @@ export default function WorkExperience() {
 
   function onPositionAdd() {
     const positionToAdd = {
-      title: 'Title/Position',
-      company: 'Workplace/Company',
-      responsibilities: [{ id: crypto.randomUUID(), value: '' }],
+      title: '',
+      company: '',
+      responsibilities: [],
       startDate: '',
       endDate: '',
       id: crypto.randomUUID(),

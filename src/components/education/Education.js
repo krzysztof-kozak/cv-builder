@@ -26,9 +26,9 @@ export default function Education() {
 
   function handleInstitutionAdd() {
     const institutionToAdd = {
-      studyProgram: 'Study Program',
-      placeOfEducation: 'Institution / Place of Education',
-      courses: [{ id: crypto.randomUUID(), value: '' }],
+      studyProgram: '',
+      placeOfEducation: '',
+      courses: [],
       startDate: '',
       endDate: '',
       id: crypto.randomUUID(),
