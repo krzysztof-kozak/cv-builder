@@ -30,6 +30,7 @@ const defaultPositions = [
 
 export default function WorkExperience() {
   const [positions, setPositions] = useState(defaultPositions);
+  const [newPositionAdded, setNewPositionAdded] = useState(false);
 
   function handlePositionEdit(positionId, nextPosition) {
     const nextPositions = positions.map((p) => {
@@ -41,8 +42,34 @@ export default function WorkExperience() {
     setPositions(nextPositions);
   }
 
-  const listOfPositions = positions.map((position) => {
-    return <Position key={position.id} onPositionEdit={handlePositionEdit} position={position} />;
+  function onPositionAdd() {
+    const positionToAdd = {
+      title: 'Title/Position',
+      company: 'Workplace/Company',
+      responsibilities: [{ id: crypto.randomUUID(), value: '' }],
+      startDate: '',
+      endDate: '',
+      id: crypto.randomUUID(),
+    };
+
+    const nextPositions = [...positions, positionToAdd];
+    setPositions(nextPositions);
+
+    if (!newPositionAdded) {
+      setNewPositionAdded(true);
+    }
+  }
+
+  const listOfPositions = positions.map((position, index) => {
+    return (
+      <Position
+        key={position.id}
+        onPositionEdit={handlePositionEdit}
+        onPositionAdd={onPositionAdd}
+        position={position}
+        defaultEditing={index === positions.length - 1 && newPositionAdded}
+      />
+    );
   });
 
   return (
