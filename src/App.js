@@ -1,4 +1,4 @@
-import { Toolbar, Optimizer, PersonalInfo, WorkExperience, Education } from './components';
+import { Toolbar, Optimizer, PersonalInfo, WorkExperience, Education, PersonalProjects } from './components';
 
 function App() {
   return (
@@ -18,6 +18,7 @@ function App() {
           <PersonalInfo />
           <WorkExperience />
           <Education />
+          <PersonalProjects />
         </section>
       </main>
     </div>
