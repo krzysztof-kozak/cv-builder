@@ -151,11 +151,17 @@ export default function Institution({ institution, onInstitutionAdd, onInstituti
   } else {
     institutionContent = (
       <>
-        <p className="flex-shrink-0 basis-full border-b-2 border-transparent">{studyProgram}</p>
-        <p className="flex-shrink-0 basis-full border-b-2 border-transparent">{placeOfEducation}</p>
-        <p className="flex-shrink-0 basis-full border-b-2  border-transparent">
-          {startDate} - {endDate}
+        <p className="flex-shrink-0 basis-full border-b-2 border-transparent">
+          {studyProgram ? studyProgram : 'Study Program'}
         </p>
+        <p className="flex-shrink-0 basis-full border-b-2 border-transparent">
+          {placeOfEducation ? placeOfEducation : 'Institution/Place of Education'}
+        </p>
+        {startDate && endDate && (
+          <p className="flex-shrink-0 basis-full border-b-2  border-transparent">
+            {startDate} - {endDate}
+          </p>
+        )}
         <ul>
           {courses.map(({ id, value }) => (
             <li className="border-b-2 border-transparent" key={id}>

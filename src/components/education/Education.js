@@ -1,19 +1,17 @@
 import { useState } from 'react';
 import { Institution } from './index';
 
-const defaultInstitutions = [
-  {
-    studyProgram: 'Study Program',
-    placeOfEducation: 'Institution/Place of Education',
-    courses: [],
-    startDate: 'mm/yyyy',
-    endDate: 'mm/yyyy',
-    id: crypto.randomUUID(),
-  },
-];
+const defaultInstitution = {
+  studyProgram: '',
+  placeOfEducation: '',
+  courses: [],
+  startDate: '',
+  endDate: '',
+  id: crypto.randomUUID(),
+};
 
 export default function Education() {
-  const [institutions, setInstitutions] = useState(defaultInstitutions);
+  const [institutions, setInstitutions] = useState([defaultInstitution]);
   const [newInstitutionAdded, setNewInstitutionAdded] = useState(false);
 
   function handleInstitutionEdit(positionId, nextPosition) {
