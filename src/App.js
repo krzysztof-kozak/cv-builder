@@ -1,4 +1,4 @@
-import { Toolbar, Optimizer, PersonalInfo, WorkExperience } from './components';
+import { Toolbar, Optimizer, PersonalInfo, WorkExperience, Education } from './components';
 
 function App() {
   return (
@@ -17,6 +17,7 @@ function App() {
         <section className="mt-8 min-h-[1000px] bg-slate-50 p-10 shadow-2xl">
           <PersonalInfo />
           <WorkExperience />
+          <Education />
         </section>
       </main>
     </div>
