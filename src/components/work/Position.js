@@ -107,8 +107,9 @@ export default function Position({ position, onPositionEdit, onPositionAdd, defa
               }}
               onKeyDown={(e) => {
                 const pressedEnter = e.key === 'Enter';
+                const hasValue = e.target.value.length > 0;
 
-                if (pressedEnter) {
+                if (pressedEnter && hasValue) {
                   const nextResponsibilities = [...responsibilities, { id: crypto.randomUUID(), value: '' }];
                   const nextPosition = { ...position, responsibilities: nextResponsibilities };
 
