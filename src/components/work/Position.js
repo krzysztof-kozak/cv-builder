@@ -6,7 +6,6 @@ export default function Position({ position, onPositionEdit, onPositionAdd, defa
   const [editing, setEditing] = useState(defaultEditing);
   const positionNodeRef = useRef(null);
   const plusSignNodeRef = useRef(null);
-  const titleNodeRef = useRef(null);
   const responsibilityListNodeRef = useRef(null);
 
   function handlePositionClick(e) {
@@ -43,7 +42,6 @@ export default function Position({ position, onPositionEdit, onPositionAdd, defa
     positionContent = (
       <>
         <input
-          ref={titleNodeRef}
           className="bg-initial flex-shrink-0 basis-full border-b-2 border-emerald-200 border-transparent bg-inherit focus:border-emerald-600 focus:outline-none"
           placeholder="Title/Position"
           value={title}
@@ -87,40 +85,58 @@ export default function Position({ position, onPositionEdit, onPositionAdd, defa
           />
         </div>
         <ul ref={responsibilityListNodeRef} className="flex flex-shrink-0 basis-full flex-wrap">
-          {responsibilities.map(({ id, value }) => (
+          {responsibilities.length > 0 ? (
+            responsibilities.map(({ id, value }) => (
+              <input
+                className="flex-shrink-0 basis-full border-b-2 border-emerald-200 border-transparent bg-inherit focus:border-emerald-600 focus:outline-none"
+                placeholder="Accomplishment/Responsibility/Task"
+                key={id}
+                value={value}
+                name="responsibilities"
+                onChange={(e) => {
+                  const nextResponsibilities = responsibilities.map((r) => {
+                    if (r.id === id) {
+                      return { ...r, value: e.target.value };
+                    }
+                    return r;
+                  });
+                  const nextPosition = { ...position, responsibilities: nextResponsibilities };
+
+                  handlePositionEdit(nextPosition);
+                }}
+                onKeyDown={(e) => {
+                  const pressedEnter = e.key === 'Enter';
+                  const hasValue = e.target.value.length > 0;
+
+                  if (pressedEnter && hasValue) {
+                    const nextResponsibilities = [...responsibilities, { id: crypto.randomUUID(), value: '' }];
+                    const nextPosition = { ...position, responsibilities: nextResponsibilities };
+
+                    flushSync(() => {
+                      handlePositionEdit(nextPosition);
+                    });
+                    responsibilityListNodeRef.current.lastChild.focus();
+                  }
+                }}
+              />
+            ))
+          ) : (
             <input
               className="flex-shrink-0 basis-full border-b-2 border-emerald-200 border-transparent bg-inherit focus:border-emerald-600 focus:outline-none"
               placeholder="Accomplishment/Responsibility/Task"
-              key={id}
-              value={value}
               name="responsibilities"
               onChange={(e) => {
-                const nextResponsibilities = responsibilities.map((r) => {
-                  if (r.id === id) {
-                    return { ...r, value: e.target.value };
-                  }
-                  return r;
-                });
+                const nextResponsibilities = [...responsibilities, { id: crypto.randomUUID(), value: e.target.value }];
                 const nextPosition = { ...position, responsibilities: nextResponsibilities };
 
-                handlePositionEdit(nextPosition);
-              }}
-              onKeyDown={(e) => {
-                const pressedEnter = e.key === 'Enter';
-                const hasValue = e.target.value.length > 0;
+                flushSync(() => {
+                  handlePositionEdit(nextPosition);
+                });
 
-                if (pressedEnter && hasValue) {
-                  const nextResponsibilities = [...responsibilities, { id: crypto.randomUUID(), value: '' }];
-                  const nextPosition = { ...position, responsibilities: nextResponsibilities };
-
-                  flushSync(() => {
-                    handlePositionEdit(nextPosition);
-                  });
-                  responsibilityListNodeRef.current.lastChild.focus();
-                }
+                responsibilityListNodeRef.current.lastChild.focus();
               }}
             />
-          ))}
+          )}
         </ul>
         <div
           ref={plusSignNodeRef}
@@ -135,11 +151,16 @@ export default function Position({ position, onPositionEdit, onPositionAdd, defa
   } else {
     positionContent = (
       <>
-        <p className="flex-shrink-0 basis-full border-b-2 border-transparent">{title}</p>
-        <p className="flex-shrink-0 basis-full border-b-2 border-transparent">{company}</p>
-        <p className="flex-shrink-0 basis-full border-b-2  border-transparent">
-          {startDate} - {endDate}
+        <p className="flex-shrink-0 basis-full border-b-2 border-transparent">{title ? title : 'Title/Position'}</p>
+        <p className="flex-shrink-0 basis-full border-b-2 border-transparent">
+          {company ? company : 'Workplace/Company'}
         </p>
+        {startDate && endDate && (
+          <p className="flex-shrink-0 basis-full border-b-2  border-transparent">
+            {startDate} - {endDate}
+          </p>
+        )}
+
         <ul>
           {responsibilities.map(({ id, value }) => (
             <li className="border-b-2 border-transparent" key={id}>

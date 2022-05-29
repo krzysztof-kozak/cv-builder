@@ -1,35 +1,17 @@
 import { useState } from 'react';
 import { Position } from './index';
 
-const defaultPositions = [
-  {
-    title: 'Analyst',
-    company: 'Aon',
-    responsibilities: [
-      { id: crypto.randomUUID(), value: 'Task 1' },
-      { id: crypto.randomUUID(), value: 'Task 2' },
-      { id: crypto.randomUUID(), value: 'Task 3' },
-    ],
-    startDate: '01/2018',
-    endDate: '01/2022',
-    id: crypto.randomUUID(),
-  },
-  {
-    title: 'Administrator',
-    company: 'IMB',
-    responsibilities: [
-      { id: crypto.randomUUID(), value: 'Task 1' },
-      { id: crypto.randomUUID(), value: 'Task 2' },
-      { id: crypto.randomUUID(), value: 'Task 3' },
-    ],
-    startDate: '01/2014',
-    endDate: '01/2018',
-    id: crypto.randomUUID(),
-  },
-];
+const defaultPosition = {
+  title: '',
+  company: '',
+  responsibilities: [],
+  startDate: '',
+  endDate: '',
+  id: crypto.randomUUID(),
+};
 
 export default function WorkExperience() {
-  const [positions, setPositions] = useState(defaultPositions);
+  const [positions, setPositions] = useState([defaultPosition]);
   const [newPositionAdded, setNewPositionAdded] = useState(false);
 
   function handlePositionEdit(positionId, nextPosition) {
