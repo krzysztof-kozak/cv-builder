@@ -14,11 +14,18 @@ function App() {
           <Optimizer />
         </section>
 
-        <section className="mt-8 min-h-[1000px] bg-slate-50 p-10 shadow-2xl">
-          <PersonalInfo />
-          <WorkExperience />
-          <Education />
-          <PersonalProjects />
+        <section className="mt-8 flex min-h-[1000px] gap-16 bg-slate-50 p-10 shadow-2xl outline outline-1 outline-red-700">
+          <div className="max-w-xs flex-none basis-1/3">
+            <h2>Left-side layout</h2>
+            <p>Hello, this is left side flex child</p>
+          </div>
+
+          <div className="grow">
+            <PersonalInfo />
+            <WorkExperience />
+            <Education />
+            <PersonalProjects />
+          </div>
         </section>
       </main>
     </div>
